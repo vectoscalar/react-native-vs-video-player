@@ -1,12 +1,24 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 
-export const styles = StyleSheet.create({
+import { AppColors, Spacing } from '@theme'
+
+interface IStyles {
+  mainContainer: ViewStyle
+  timer: TextStyle
+  slider: ViewStyle
+}
+
+export const styles: IStyles = StyleSheet.create({
   mainContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
   },
-  timer:{
-    color:"white",
-    marginHorizontal:15,
-  }
-});
+  timer: {
+    color: AppColors.secondary,
+    marginHorizontal: Spacing.space_16,
+  },
+  slider: {
+    width: '60%',
+    height: Spacing.space_40,
+  },
+})

@@ -1,30 +1,25 @@
-import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { styles } from './playPause-styles';
+import { Spacing } from '@theme'
 
-interface PlayPauseProps {
-  setPaused: React.Dispatch<React.SetStateAction<boolean>>;
-  paused: boolean;
+interface IPlayPauseProps {
+  setPaused: (paused: boolean) => void
+  paused: boolean
 }
 
-const PlayPause = ({ setPaused, paused }) => {
+const PlayPause = (props: IPlayPauseProps) => {
+  const { setPaused, paused } = props
   const handlePlayPause = () => {
-    setPaused(!paused);
-  };
+    setPaused(!paused)
+  }
 
   return (
-    <View>
-      <TouchableOpacity onPress={handlePlayPause}>
-        {paused ? (
-          <Icon name='play-circle' size={30} />
-        ) : (
-          <Icon name='pause-circle' size={30} />
-        )}
-      </TouchableOpacity>
-    </View>
-  );
-};
+    <TouchableOpacity onPress={handlePlayPause}>
+      <Icon name={paused ? 'play-circle' : 'pause-circle'} size={Spacing.space_30} />
+    </TouchableOpacity>
+  )
+}
 
-export default PlayPause;
+export default PlayPause

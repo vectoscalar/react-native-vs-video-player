@@ -1,13 +1,14 @@
-import { AppColors, Spacing } from '@theme';
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
+
+import { AppColors, Spacing } from '@theme'
 
 interface IStyles {
-  closeButton: ViewStyle;
-  closeButtonText: TextStyle;
-  controlContainer: ViewStyle;
-  modalContainer: ViewStyle;
-  optionButton: ViewStyle;
-  optionText: TextStyle;
+  closeButton: ViewStyle
+  closeButtonText: TextStyle
+  controlContainer: ViewStyle
+  modalContainer: ViewStyle
+  optionButton: ViewStyle
+  optionText: TextStyle
 }
 const style = StyleSheet.create<IStyles>({
   controlContainer: {
@@ -21,26 +22,26 @@ const style = StyleSheet.create<IStyles>({
     justifyContent: 'center',
   },
   optionButton: {
-    backgroundColor:AppColors.primary[100],
+    backgroundColor: AppColors.primary[100],
     borderRadius: Spacing.space_10,
     marginVertical: Spacing.space_5,
-    paddingHorizontal:Spacing.space_20,
+    paddingHorizontal: Spacing.space_20,
     paddingVertical: Spacing.space_10,
   },
   optionText: {
     fontSize: Spacing.space_16,
   },
   closeButton: {
-    backgroundColor: 'red',
+    backgroundColor: AppColors.tertiary,
     borderRadius: Spacing.space_10,
     marginTop: Spacing.space_10,
     paddingHorizontal: Spacing.space_20,
     paddingVertical: Spacing.space_10,
   },
   closeButtonText: {
-    color:AppColors.secondary,
+    color: AppColors.secondary,
     fontSize: Spacing.space_16,
   },
-});
+})
 
-export default style;
+export default style

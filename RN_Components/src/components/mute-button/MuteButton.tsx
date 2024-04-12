@@ -11,13 +11,13 @@ interface IMuteButtonProps {
 
 const MuteButton = (props: IMuteButtonProps) => {
   const { muted, setMuted } = props
+  const handlePress = () => {
+    setMuted(!muted)
+  }
+
   return (
-    <TouchableOpacity onPress={() => setMuted(!muted)}>
-      {muted ? (
-        <Icon name="volume-x" size={Spacing.space_32} />
-      ) : (
-        <Icon name="volume-2" size={30} />
-      )}
+    <TouchableOpacity onPress={handlePress}>
+      <Icon name={muted ? 'volume-x' : 'volume-2'} size={Spacing.space_32} />
     </TouchableOpacity>
   )
 }

@@ -4,4 +4,5 @@ export const palette = {
     '700': '#000000',
   },
   white: '#FFFFFF',
+  red: '#FF0000',
 }

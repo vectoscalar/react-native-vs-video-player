@@ -1,48 +1,48 @@
-import { View, Text } from 'react-native';
-import React, { forwardRef, useEffect, useState } from 'react';
-import Slider from '@react-native-community/slider';
+import React, { forwardRef, useEffect, useState } from 'react'
+import { Text, View } from 'react-native'
 
-import { styles } from './bottomView-styles';
+import Slider from '@react-native-community/slider'
 
-const BottomView = forwardRef(({ progress }, ref) => { 
-    const [sliderValue, setSliderValue] = useState(0);
+import { AppColors } from '@theme'
+import { format } from '@utils'
 
-    useEffect(() => {
-        if (progress) {
-            setSliderValue(progress.currentTime);
-        }
-    }, [progress]);
+import { styles } from './bottomView-styles'
 
-    const format = seconds => {
-        let mins = parseInt(seconds / 60)
-          .toString()
-          .padStart(2, '0');
-        let secs = (Math.trunc(seconds) % 60).toString().padStart(2, '0');
-        return `${mins}:${secs}`; // Added semicolon here
-    };
+interface IBackwardButtonProps {
+  progress?: {
+    currentTime: number
+  }
+}
 
-    const onSliderValueChange = value => {
-        setSliderValue(value);
-        ref.current.seek(value);
-    };
+const BottomView = forwardRef((props: IBackwardButtonProps, ref) => {
+  const { progress } = props
+  const [sliderValue, setSliderValue] = useState<Number>(0)
+  useEffect(() => {
+    if (progress) {
+      setSliderValue(progress.currentTime)
+    }
+  }, [progress])
 
-    return (
-        <View style={styles.mainContainer}>
-            <Text style={styles.timer}>{format(progress.currentTime)}</Text>
+  const onSliderValueChange = (value: Number) => {
+    setSliderValue(value)
+    ref.current.seek(value)
+  }
 
-            <Slider
-                style={{ width: '60%', height: 40 }}
-                minimumValue={0}
-                maximumValue={progress.seekableDuration}
-                minimumTrackTintColor="#FFFFFF"
-                maximumTrackTintColor="#000000"
-                value={sliderValue} 
-                onValueChange={onSliderValueChange} // Pass the correct function
-            />
+  return (
+    <View style={styles.mainContainer}>
+      <Text style={styles.timer}>{format(progress.currentTime)}</Text>
+      <Slider
+        style={styles.slider}
+        minimumValue={0}
+        maximumValue={progress.seekableDuration}
+        minimumTrackTintColor={AppColors.secondary}
+        maximumTrackTintColor={AppColors.primary[700]}
+        value={sliderValue}
+        onValueChange={onSliderValueChange}
+      />
+      <Text style={styles.timer}>{format(progress.seekableDuration)}</Text>
+    </View>
+  )
+})
 
-            <Text style={styles.timer}>{format(progress.seekableDuration)}</Text>
-        </View>
-    );
-});
-
-export default BottomView;
+export default BottomView

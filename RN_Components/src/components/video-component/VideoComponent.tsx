@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
-import { Dimensions, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import Video, { TextTrackType } from 'react-native-video'
+
+import { subTitleUrl, urls, videoHeight, videoWidth } from '@constants'
 
 import BackwardButton from '../backward-button/BackwardButton'
 import BottomView from '../bottom-view/BottomView'
@@ -18,14 +20,25 @@ import SpeedButton from '../speed-button/SpeedButton'
 import styles from './videoComponent-styles'
 
 const VideoComponent = () => {
-  const [playbackSpeed, setPlaybackSpeed] = useState(1.0)
-  const [showSpeedOptions, setShowSpeedOptions] = useState(false)
-  const [muted, setMuted] = useState(false)
-  const [pipMode, setPIPMode] = useState(false)
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.0)
+  const [showSpeedOptions, setShowSpeedOptions] = useState<boolean>(false)
+  const [muted, setMuted] = useState<boolean>(false)
+  const [pipMode, setPIPMode] = useState<boolean>(false)
   const [clicked, setClicked] = useState<boolean>(false)
   const [paused, setPaused] = useState<boolean>(false)
   const [progress, setProgress] = useState<any>(null)
   const [fullscreen, setFullscreen] = useState<boolean>(false)
+  const [repeat, setRepeat] = useState<boolean>(true)
+  const [caption, setCaption] = useState<boolean>(false)
+  const [captionDetails, setCaptionDetails] = useState<{
+    type: 'disabled' | 'index'
+    value: number
+  }>({
+    type: 'disabled',
+    value: 0,
+  })
+  const [quality, setQuality] = useState<'low' | 'medium' | 'high'>('low')
+  const [showQualityOption, setShowQualityOption] = useState<boolean>(false)
   const videoRef = useRef<Video>(null)
 
   const handleSpeedChange = (speed: number) => {
@@ -41,38 +54,9 @@ const VideoComponent = () => {
     setFullscreen(!fullscreen)
   }
 
-  const windowWidth = Dimensions.get('window').width
-  const videoWidth = windowWidth
-  const aspectRation = 2 / 3
-  const videoHeight = videoWidth * aspectRation
-  const subTitleUrl = 'https://bitdash-a.akamaihd.net/content/sintel/subtitles/subtitles_en.vtt'
-  const [repeat, setRepeat] = useState(true)
-  interface IUrls {
-    low: string
-    medium: string
-    high: string
-  }
-  const urls: IUrls = {
-    low: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-    medium: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    high: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
-  }
-
-  const [caption, setCaption] = useState<boolean>(false)
-  const [captionDetails, setCaptionDetails] = useState<{
-    type: 'disabled' | 'index'
-    value: number
-  }>({
-    type: 'disabled',
-    value: 0,
-  })
-
-  const [quality, setQuality] = useState<'low' | 'medium' | 'high'>('low')
-  const [showQualityOption, setShowQualityOption] = useState(false)
-
   return (
     <>
-      <TouchableOpacity style={styles.container}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={handlePress}>
           <Video
             source={{
@@ -102,17 +86,13 @@ const VideoComponent = () => {
         </TouchableOpacity>
 
         {clicked && (
-          <TouchableOpacity
-            style={[{ height: videoHeight - 40, width: videoWidth }, styles.onPause]}
-            onPress={handlePress}>
+          <TouchableOpacity style={[styles.clickedContainer, styles.onPause]} onPress={handlePress}>
             <FullScreen fullscreen={fullscreen} setFullscreen={toggleFullScreen} />
-
             <View style={styles.buttonsContainer}>
               <BackwardButton progress={progress} ref={videoRef} />
               <PlayPause paused={paused} setPaused={setPaused} />
               <ForwardButton progress={progress} ref={videoRef} />
             </View>
-
             <BottomView progress={progress} ref={videoRef} />
           </TouchableOpacity>
         )}
@@ -138,7 +118,7 @@ const VideoComponent = () => {
             setShowQualityOption={setShowQualityOption}
           />
         </View>
-      </TouchableOpacity>
+      </View>
     </>
   )
 }

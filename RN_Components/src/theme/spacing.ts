@@ -1,5 +1,5 @@
 export enum Spacing {
-  space_0 = 0,
+  space_0 = 0.5,
   space_1 = 1,
   space_5 = 5,
   space_8 = 8,
@@ -9,5 +9,6 @@ export enum Spacing {
   space_24 = 24,
   space_30 = 30,
   space_32 = 32,
+  space_40 = 40,
   space_64 = 64,
 }

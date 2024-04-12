@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+import { speedOptions } from '@constants'
 import { Spacing } from '@theme'
 
 import style from './speedButton-styles'
@@ -21,15 +22,14 @@ const SpeedButton = (props: ISpeedButtonProps) => {
       </TouchableOpacity>
       <Modal visible={showSpeedOptions} transparent={true} animationType="slide">
         <View style={style.modalContainer}>
-          <TouchableOpacity style={style.optionButton} onPress={() => handleSpeedChange(0.5)}>
-            <Text style={style.optionText}>0.5x</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.optionButton} onPress={() => handleSpeedChange(1.0)}>
-            <Text style={style.optionText}>1.0x</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.optionButton} onPress={() => handleSpeedChange(2.0)}>
-            <Text style={style.optionText}>2.0x</Text>
-          </TouchableOpacity>
+          {speedOptions.map((speed, index) => (
+            <TouchableOpacity
+              key={index}
+              style={style.optionButton}
+              onPress={() => handleSpeedChange(speed)}>
+              <Text style={style.optionText}>{speed}x</Text>
+            </TouchableOpacity>
+          ))}
           <TouchableOpacity style={style.closeButton} onPress={() => setShowSpeedOptions(false)}>
             <Text style={style.closeButtonText}>Close</Text>
           </TouchableOpacity>

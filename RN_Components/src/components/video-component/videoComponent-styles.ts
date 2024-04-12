@@ -1,12 +1,14 @@
 import { StyleSheet, ViewStyle } from 'react-native'
 
-import { Spacing } from '@theme'
+import { videoHeight, videoWidth } from '@constants'
+import { AppColors, Spacing } from '@theme'
 
 interface IStyles {
   container: ViewStyle
   controlContainer: ViewStyle
   onPause: ViewStyle
   buttonsContainer: ViewStyle
+  clickedContainer: ViewStyle
 }
 const styles = StyleSheet.create<IStyles>({
   container: {
@@ -19,13 +21,18 @@ const styles = StyleSheet.create<IStyles>({
   },
   onPause: {
     position: 'absolute',
-    backgroundColor: "rgba(0,0,0,0.5)" ,
-    justifyContent:"space-around", 
-    top:20,
+    backgroundColor: AppColors.primary[700],
+    opacity: Spacing.space_0,
+    justifyContent: 'space-around',
+    top: Spacing.space_20,
   },
-  buttonsContainer:{
-    flexDirection:"row",
-    justifyContent:"space-around"
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  clickedContainer: {
+    height: videoHeight - Spacing.space_40,
+    width: videoWidth,
   },
 })
 

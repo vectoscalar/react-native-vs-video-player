@@ -23,15 +23,9 @@ const CaptionButton = (props: ICaptionButtonProps) => {
   }
 
   return (
-    <View>
-      <TouchableOpacity onPress={toggleCaption}>
-        {caption ? (
-          <Icon name="closed-caption" size={Spacing.space_30} />
-        ) : (
-          <Icon name="closed-caption-outline" size={Spacing.space_30} />
-        )}
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={toggleCaption}>
+      <Icon name={caption ? 'closed-caption' : 'closed-caption-outline'} size={Spacing.space_30} />
+    </TouchableOpacity>
   )
 }
 

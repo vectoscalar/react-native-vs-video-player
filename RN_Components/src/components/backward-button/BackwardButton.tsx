@@ -1,22 +1,28 @@
-import React, { forwardRef } from 'react'; 
-import { View, TouchableOpacity } from 'react-native';
+import { Spacing } from '@theme'
+import React, { forwardRef } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { styles } from './backwardButton-styles';
+interface IBackwardButtonProps {
+  progress?: {
+    currentTime: number
+  }
+}
 
-const BackwardButton = forwardRef((props, ref) => {
+const BackwardButton = forwardRef((props: IBackwardButtonProps, ref) => {
+  const { progress } = props
+  const handlePress = () => {
+    if (progress) {
+      ref.current.seek(parseInt(progress.currentTime - 10))
+    }
+  }
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => {
-          if (props.progress) {
-            ref.current.seek(parseInt(props.progress.currentTime - 10));
-          }
-        }}>
-        <Icon name='skip-backward' size={30}/>
+      <TouchableOpacity onPress={handlePress}>
+        <Icon name="skip-backward" size={Spacing.space_30} />
       </TouchableOpacity>
     </View>
-  );
-});
+  )
+})
 
-export default BackwardButton;
+export default BackwardButton

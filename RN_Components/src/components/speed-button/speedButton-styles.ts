@@ -28,7 +28,7 @@ const styles = StyleSheet.create<SpeedButtonStyles>({
     fontSize: Spacing.space_16,
   },
   closeButton: {
-    backgroundColor: 'red',
+    backgroundColor: AppColors.tertiary,
     paddingHorizontal: Spacing.space_20,
     paddingVertical: Spacing.space_16,
     marginTop: Spacing.space_16,

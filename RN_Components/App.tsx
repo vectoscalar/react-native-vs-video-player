@@ -1,14 +1,12 @@
 import React from 'react'
-import { SafeAreaView, Text } from 'react-native'
+import { SafeAreaView } from 'react-native'
 
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
+import { DefaultTheme } from '@react-navigation/native'
 
-import { AppNavigator } from '@navigation'
+import { VideoComponent } from '@components'
 import { AppColors } from '@theme'
 
 import { styles } from './app-styles'
-import VideoComponent from './src/components/video-component/VideoComponent'
-import VideoCard from './src/components/video-card/VideoCard'
 
 const AppTheme = {
   ...DefaultTheme,
@@ -21,13 +19,7 @@ const AppTheme = {
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* <NavigationContainer theme={AppTheme}>
-        <AppNavigator />
-      </NavigationContainer> */}
-      <VideoComponent /> 
-
-
-
+      <VideoComponent />
     </SafeAreaView>
   )
 }
