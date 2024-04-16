@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Dimensions, TouchableOpacity, View } from 'react-native'
 import Video, { TextTrackType } from 'react-native-video'
 
 import { subTitleUrl, urls, videoHeight, videoWidth } from '@constants'
@@ -26,7 +26,7 @@ const VideoComponent = () => {
   const [pipMode, setPIPMode] = useState<boolean>(false)
   const [clicked, setClicked] = useState<boolean>(false)
   const [paused, setPaused] = useState<boolean>(false)
-  const [progress, setProgress] = useState<any>(null)
+  const [progress, setProgress] = useState<Number>(0)
   const [fullscreen, setFullscreen] = useState<boolean>(false)
   const [repeat, setRepeat] = useState<boolean>(true)
   const [caption, setCaption] = useState<boolean>(false)
@@ -39,6 +39,7 @@ const VideoComponent = () => {
   })
   const [quality, setQuality] = useState<'low' | 'medium' | 'high'>('low')
   const [showQualityOption, setShowQualityOption] = useState<boolean>(false)
+  const [backgroundDetected, setBackgroundDetected] = useState<boolean>(false)
   const videoRef = useRef<Video>(null)
 
   const handleSpeedChange = (speed: number) => {
@@ -62,7 +63,11 @@ const VideoComponent = () => {
             source={{
               uri: urls[quality],
             }}
-            style={{ height: videoHeight, width: videoWidth }}
+            style={
+              fullscreen
+                ? { height: '100%', width: '100%' }
+                : { height: videoHeight, width: videoWidth }
+            }
             resizeMode="contain"
             rate={playbackSpeed}
             muted={muted}
@@ -86,7 +91,13 @@ const VideoComponent = () => {
         </TouchableOpacity>
 
         {clicked && (
-          <TouchableOpacity style={[styles.clickedContainer, styles.onPause]} onPress={handlePress}>
+          <TouchableOpacity
+            style={
+              fullscreen
+                ? [styles.clickedContainer, styles.onPause, { height: '100%', width: '100%' }]
+                : [styles.clickedContainer, styles.onPause]
+            }
+            onPress={handlePress}>
             <FullScreen fullscreen={fullscreen} setFullscreen={toggleFullScreen} />
             <View style={styles.buttonsContainer}>
               <BackwardButton progress={progress} ref={videoRef} />
@@ -99,7 +110,14 @@ const VideoComponent = () => {
 
         <View style={styles.controlContainer}>
           <MuteButton muted={muted} setMuted={setMuted} />
-          <PIPButton pipMode={pipMode} setPIPMode={setPIPMode} />
+          {!backgroundDetected && (
+            <PIPButton
+              backgroundDetected={backgroundDetected}
+              setBackgroundDetected={setBackgroundDetected}
+              pipMode={pipMode}
+              setPipMode={setPIPMode}
+            />
+          )}
           <SpeedButton
             setShowSpeedOptions={setShowSpeedOptions}
             showSpeedOptions={showSpeedOptions}

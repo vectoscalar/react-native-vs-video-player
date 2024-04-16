@@ -1,9 +1,9 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import Orientation from 'react-native-orientation-locker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { Spacing } from '@theme'
+import Orientation from 'react-native-orientation-locker'
 
 interface IFullScreenProps {
   fullscreen: boolean
@@ -15,12 +15,12 @@ const FullScreen = (props: IFullScreenProps) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        if (fullscreen) {
-          Orientation.lockToPortrait()
-        } else {
-          Orientation.lockToLandscape()
-        }
-        setFullscreen(!fullscreen)
+        if(fullscreen){
+          Orientation.lockToPortrait();
+      } else{
+          Orientation.lockToLandscape();
+      }
+      setFullscreen(!fullscreen)
       }}>
       <Icon name={!fullscreen ? 'fullscreen' : 'fullscreen-exit'} size={Spacing.space_30} />
     </TouchableOpacity>
